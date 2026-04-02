@@ -1,0 +1,64 @@
+{
+  "manifest_version": 3,
+  "name": "PriceWatch Pro",
+  "version": "1.0.0",
+  "description": "Track prices on Amazon India, Flipkart, Myntra, Snapdeal, Meesho and any website. Get notified on price drops.",
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications",
+    "identity",
+    "tabs",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://www.amazon.in/*",
+    "https://www.flipkart.com/*",
+    "https://www.snapdeal.com/*",
+    "https://www.meesho.com/*",
+    "https://www.myntra.com/*",
+    "https://*/*",
+    "https://sheets.googleapis.com/*",
+    "https://api.emailjs.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "PriceWatch Pro",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.amazon.in/*",
+        "https://www.flipkart.com/*",
+        "https://www.snapdeal.com/*",
+        "https://www.meesho.com/*",
+        "https://www.myntra.com/*",
+        "https://*/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "oauth2": {
+    "client_id": "YOUR_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/spreadsheets"]
+  }
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PriceWatch Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <!-- ── Header ── -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo-mark">⬡</div>
+      <div>
+        <div class="app-name">PriceWatch</div>
+        <div class="app-sub">Pro</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <button id="btn-check-now" class="icon-btn" title="Check prices now">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+        </svg>
+      </button>
+      <button id="btn-settings" class="icon-btn" title="Settings">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Track This Page banner ── -->
+  <div id="track-banner" class="track-banner hidden">
+    <div class="track-banner-info">
+      <div class="track-banner-name" id="page-product-name">Loading...</div>
+      <div class="track-banner-price" id="page-product-price">—</div>
+    </div>
+    <button id="btn-track-page" class="btn-track">
+      + Track
+    </button>
+  </div>
+
+  <!-- ── Already tracking notice ── -->
+  <div id="already-tracking" class="already-tracking hidden">
+    <span class="already-dot"></span>
+    <span>Already tracking this page</span>
+  </div>
+
+  <!-- ── Not a product page ── -->
+  <div id="not-product" class="not-product hidden">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    Navigate to a product page to start tracking
+  </div>
+
+  <!-- ── Stats bar ── -->
+  <div id="stats-bar" class="stats-bar hidden">
+    <div class="stat">
+      <div class="stat-val" id="stat-count">0</div>
+      <div class="stat-label">Tracked</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-val stat-green" id="stat-drops">0</div>
+      <div class="stat-label">Price Drops</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-val stat-amber" id="stat-saved">₹0</div>
+      <div class="stat-label">Saved</div>
+    </div>
+  </div>
+
+  <!-- ── Items list ── -->
+  <div id="items-container">
+    <!-- Items rendered by JS -->
+  </div>
+
+  <!-- ── Empty state ── -->
+  <div id="empty-state" class="empty-state hidden">
+    <div class="empty-icon">⬡</div>
+    <div class="empty-title">No items tracked yet</div>
+    <div class="empty-sub">Visit a product page on Amazon, Flipkart, Myntra, Snapdeal, or Meesho and click "+ Track"</div>
+  </div>
+
+  <!-- ── Toast notification ── -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- ── Loading overlay ── -->
+  <div id="loading-overlay" class="loading-overlay hidden">
+    <div class="spinner"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

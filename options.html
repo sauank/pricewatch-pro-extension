@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PriceWatch Pro — Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="page-header">
+      <div class="logo-wrap">
+        <span class="logo-hex">⬡</span>
+        <div>
+          <div class="app-title">PriceWatch Pro</div>
+          <div class="app-sub">Settings</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- ── General ── -->
+      <section class="section">
+        <div class="section-title">
+          <span class="section-icon">⚙</span> General
+        </div>
+
+        <div class="field">
+          <label class="label">Check interval</label>
+          <div class="hint">How often to check for price changes in the background</div>
+          <select id="check-interval" class="select">
+            <option value="3">Every 3 hours</option>
+            <option value="6" selected>Every 6 hours</option>
+            <option value="12">Every 12 hours</option>
+            <option value="24">Once a day</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="label">Notify only when drop is ≥</label>
+          <div class="hint">Set to 0 to get notified on any price drop</div>
+          <div class="input-group">
+            <input id="drop-threshold" type="number" class="input" min="0" max="99" placeholder="0" />
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Email alerts via EmailJS ── -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-title"><span class="section-icon">✉</span> Email Alerts</div>
+          <label class="toggle">
+            <input type="checkbox" id="emailjs-enabled" />
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </label>
+        </div>
+        <div class="hint section-hint">
+          Uses <a href="https://www.emailjs.com" target="_blank" class="link">EmailJS</a> (free tier: 200 emails/month). 
+          <a href="https://www.emailjs.com/docs/tutorial/overview/" target="_blank" class="link">Setup guide →</a>
+        </div>
+
+        <div id="emailjs-fields" class="fields-group disabled">
+          <div class="field">
+            <label class="label">EmailJS Service ID</label>
+            <input id="emailjs-service-id" type="text" class="input" placeholder="service_xxxxxxx" />
+          </div>
+          <div class="field">
+            <label class="label">EmailJS Template ID</label>
+            <input id="emailjs-template-id" type="text" class="input" placeholder="template_xxxxxxx" />
+            <div class="hint">Template variables: <code>to_email, product_name, current_price, old_price, drop_percent, product_url</code></div>
+          </div>
+          <div class="field">
+            <label class="label">EmailJS Public Key</label>
+            <input id="emailjs-public-key" type="text" class="input" placeholder="xxxxxxxxxxxxxxx" />
+          </div>
+          <div class="field">
+            <label class="label">Send alerts to email</label>
+            <input id="recipient-email" type="email" class="input" placeholder="you@example.com" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Google Sheets ── -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-title"><span class="section-icon">📊</span> Google Sheets Sync</div>
+          <label class="toggle">
+            <input type="checkbox" id="sheets-enabled" />
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </label>
+        </div>
+        <div class="hint section-hint">
+          Logs every price drop to a Google Sheet. Requires Google OAuth setup in manifest.json.
+          <a href="#sheets-setup" class="link">Setup steps ↓</a>
+        </div>
+
+        <div id="sheets-fields" class="fields-group disabled">
+          <div class="field">
+            <label class="label">Google Spreadsheet ID</label>
+            <input id="sheets-id" type="text" class="input" placeholder="1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms" />
+            <div class="hint">Find it in the sheet URL: docs.google.com/spreadsheets/d/<strong>[THIS PART]</strong>/edit</div>
+          </div>
+          <div class="field">
+            <label class="label">Sheet / Tab name</label>
+            <input id="sheets-name" type="text" class="input" placeholder="PriceHistory" />
+          </div>
+          <div class="field">
+            <button id="btn-auth-sheets" class="btn-secondary">
+              🔐 Authorize Google Account
+            </button>
+            <div id="auth-status" class="auth-status"></div>
+          </div>
+          <div id="sheets-setup" class="setup-box">
+            <div class="setup-title">Google OAuth Setup (one-time):</div>
+            <ol class="setup-steps">
+              <li>Go to <a href="https://console.cloud.google.com" target="_blank" class="link">Google Cloud Console</a></li>
+              <li>Create a new project → Enable <strong>Google Sheets API</strong></li>
+              <li>Go to Credentials → Create OAuth 2.0 Client ID → select <strong>Chrome Extension</strong></li>
+              <li>Set Application ID to your extension's ID (find at <code>chrome://extensions</code>)</li>
+              <li>Copy the Client ID and paste it in <code>manifest.json</code> under <code>"oauth2" → "client_id"</code></li>
+              <li>Reload the extension, then click Authorize above</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Danger zone ── -->
+      <section class="section section-danger">
+        <div class="section-title"><span class="section-icon">⚠</span> Data</div>
+        <div class="field">
+          <button id="btn-export" class="btn-secondary">⬇ Export tracked items (JSON)</button>
+        </div>
+        <div class="field">
+          <button id="btn-clear-all" class="btn-danger">✕ Clear all tracked items</button>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <button id="btn-save" class="btn-primary">Save Settings</button>
+      <div id="save-status" class="save-status"></div>
+    </footer>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
